@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用户问卷列表</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
+
+</head>
+<body style="background-image:url(/image/back2.png); background-size:100%,100%">
+<div class="container">
+
+		<!-- 导航条 -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-weight mt-2">
+			<a class="navbar-brand" href="#">问卷调查系统</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="index.jsp">首页
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="QuestionnaireBuffer">填写问卷</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">当日访问量(${count})</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">${username!=null?username:'未登录'}</a> <c:if
+							test="${username!=null}">
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="TUserInfo">我的信息</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="LogOutAction">注销</a>
+							</div>
+						</c:if></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="row" style="margin-top: 10px">
+
+			<!-- 左边栏 -->
+			<div class="col-lg-3">
+
+				<div class="card">
+					<div class="card-header">功能区</div>
+					<div class="card-body">
+						<div class="">
+							<div class="list-group">
+								<a href="login.jsp" class="list-group-item list-group-item-action">前往登录界面</a>
+								<a href="TUserInfo" class="list-group-item list-group-item-action">显示个人信息</a>
+								<a href="userchange.jsp" class="list-group-item list-group-item-action">修改个人信息</a>
+								<a href="QuestionnaireBuffer" class="list-group-item list-group-item-action">前往填写问卷</a>
+								<a href="QuestionnaireList_user" class="list-group-item list-group-item-action">我的填写记录</a>
+								<a href="QrAction" class="list-group-item list-group-item-action">生成二维码名片</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-9">
+
+				<div class="card">
+					<div class="card-header">问卷列表</div>
+					<div class="card-body pr-2 ">
+						<h2 class="text-center">我的问卷填写记录</h2>
+						<table class="table table-striped">
+							<thead>
+								<tr class="min-width text-center">
+									<th scope="col" >序号</th>
+									<th scope="col" >姓名</th>
+									<th scope="col" >专业</th>
+									<th scope="col" >年级</th>
+									<th scope="col" >开始使用年龄段</th>
+									<th scope="col" >使用软件</th>
+									<th scope="col" >使用时长(h)</th>
+									<th scope="col" >填写时间</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${ list }" var="user" varStatus="i">
+									<tr class="min-width text-center">
+										<th scope="row">${i.count}</th>
+										<td>${user.name}</td>
+										<td>${user.major}</td>
+										<td>${user.grade}</td>
+										<td>${user.start}</td>
+										<td>${user.app}</td>
+										<td>${user.hour}</td>
+										<td>${user.date}</td>
+
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+
+
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

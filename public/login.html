@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登录界面</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+
+</head>
+<body style="background-image:url(/image/back2.png); background-size:100%,100%">
+	
+	<div class="container">
+
+		<!-- 导航条 -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-weight mt-2">
+            <a class="navbar-brand" href="#">问卷调查系统</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.jsp">首页
+                            <span class="sr-only">(current)</span>
+                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="QuestionnaireBuffer">填写问卷</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">当日访问量(${count})</a></li>
+                    <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">${username!=null?username:'未登录'}</a> <c:if
+                            test="${username!=null}">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="TUserInfo">我的信息</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="LogOutAction">注销</a>
+                            </div>
+                        </c:if></li>
+                </ul>
+            </div>
+        </nav>
+
+		<div class="row" style="margin-top: 10px">
+
+			<div class="col-lg-9">
+
+				<div class="card">
+					<div class="card-header">登录</div>
+					<div class="card-body">
+
+						<p style="color: red">${ info }</p>
+
+						<form method="post" action="LoginAction">
+
+							<div class="form-group row">
+								<label for="inputEmail3" class="col-sm-3 col-form-label">用户名</label>
+								<div class="col-sm-8">
+									<input type="text" name="username" class="form-control"
+										id="inputEmail3" placeholder="请输入用户名称">
+									<!-- required
+										pattern="[a-z]{1,8}" -->
+								</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">密码</label>
+								<div class="col-sm-8">
+									<input type="password" name="password" class="form-control"
+										id="inputPassword3" placeholder="请输入密码">
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">身份选择</label>
+								<div class="col-sm-3 mt-2">
+									<div class="form-check form-check-inline">
+
+										<input class="form-check-input" type="radio" name="shenfen"
+											value="admin" id="shenfen1" checked> 
+										<label
+											class="form-check-label" for="shenfen1">管理员</label>
+
+									</div>
+								</div>
+								<div class="col-sm-3 mt-2">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="shenfen"
+											id="shenfen2" value="user"> 
+										<label
+											class="form-check-label" for="shenfen2">用户</label>
+
+									</div>
+								</div>
+								</div>
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">校验码</label>
+								<div class="col-sm-4">
+									<input type="text" name="code" class="form-control"
+										id="inputPassword3" placeholder="校验码">
+								</div>
+
+								<div class="col-sm-5">
+									<img alt="校验码图片" src="VerCode"
+										onclick="this.src='VerCode?'+Math.random()">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<button type="submit" class="btn btn-primary btn-block">登录</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-3">
+
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">
+                        当前已登录用户列表(${onlineUserList.size()})
+                        <!-- (<span id="c1">0</span>人) -->
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <h5 class="card-title">系统功能介绍</h5>
+                            <p class="card-text">本系统为在线问卷填写系统，普通用户可以对问卷进行在线填写，系统管理员在登陆后有权限开启或终止问卷的填写，并且可以对填写的问卷数据进行统计以及简要分析</p>
+                            <p class="card-text">系统用途：简单的在线问卷功能以及对大学生每天花费在手机上的时间的统计</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                <div class="card-header">站长介绍</div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">19计算机1班</a>
+                        <a href="#" class="list-group-item list-group-item-action">190110910802</a>
+                        <a href="#" class="list-group-item list-group-item-action">蔡晶晶</a>
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+            </div>
+
+		</div>
+
+	</div>
+</body>
+</html>

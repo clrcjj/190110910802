@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用户注册</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
+</head>
+<body style="background-image:url(/image/back2.png); background-size:100%,100%">
+
+
+	<div class="container">
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-weight mt-2">
+            <a class="navbar-brand" href="#">问卷调查系统</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.jsp">首页
+                            <span class="sr-only">(current)</span>
+                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="QuestionnaireBuffer">填写问卷</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">当日访问量(${count})</a></li>
+                    <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">${username!=null?username:'未登录'}</a> <c:if
+                            test="${username!=null}">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="TUserInfo">我的信息</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="LogOutAction">注销</a>
+                            </div>
+                        </c:if></li>
+                </ul>
+            </div>
+        </nav>
+
+		<div class="row" style="margin-top: 10px">
+
+			<div class="col-lg-3">
+
+                <div class="card">
+                    <div class="card-header">功能区</div>
+                    <div class="card-body">
+                        <div class="">
+                            <div class="list-group">
+                                <a href="login.jsp" class="list-group-item list-group-item-action">前往登录界面</a>
+                                <a href="TUserInfo" class="list-group-item list-group-item-action">显示个人信息</a>
+                                <a href="userchange.jsp" class="list-group-item list-group-item-action">修改个人信息</a>
+                                <a href="QuestionnaireBuffer" class="list-group-item list-group-item-action">前往填写问卷</a>
+                                <a href="QuestionnaireList_user" class="list-group-item list-group-item-action">我的填写记录</a>
+                                <a href="QrAction" class="list-group-item list-group-item-action">生成二维码名片</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="col-lg-9">
+
+
+				<div class="card">
+					<div class="card-header">用户注册</div>
+					<div class="card-body">
+
+						<p style="color: red"></p>
+
+						<form method="post" action="RegAction"
+							enctype="multipart/form-data">
+
+							<div class="form-group row">
+								<label for="inputEmail3" class="col-sm-3 col-form-label">用户名</label>
+								<div class="col-sm-6">
+									<input type="text" name="username" class="form-control"
+										id="inputEmail3" placeholder="用户名">
+									<!-- required pattern="[a-z]{2,8}" -->
+								</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">密码</label>
+								<div class="col-sm-6">
+									<input type="password" name="password" class="form-control"
+										id="inputPassword3" placeholder="密码">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">性别</label>
+								<div class="col-sm-1">
+									<div class="form-check form-check-inline">
+
+										<input class="form-check-input" type="radio" name="sex"
+											value="男" id="sex1" checked> <label
+											class="form-check-label" for="sex1">男</label>
+
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="sex"
+											id="sex2" value="女"> <label
+											class="form-check-label" for="sex2">女</label>
+
+
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">出生年月</label>
+								<div class="col-sm-3">
+									<input type="date" name="birth" class="form-control"
+										id="inputPassword3" placeholder="生日" name="birth"
+										value="2000-01-01">
+								</div>
+							</div>
+
+
+							<!-- 特长-->
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">特长</label>
+								<div class="col-sm-4">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox"
+											id="inlineCheckbox1" value="唱歌" name="specs"> <label
+											class="form-check-label" for="inlineCheckbox1">唱歌</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox"
+											id="inlineCheckbox2" value="跳舞" name="specs"> <label
+											class="form-check-label" for="inlineCheckbox2">跳舞</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox"
+											id="inlineCheckbox3" value="书画"
+											name="specs"> <label class="form-check-label"
+											for="inlineCheckbox3">书画</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox"
+											id="inlineCheckbox4" value="乐器" name="specs">
+										<label class="form-check-label" for="inlineCheckbox4">乐器</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox"
+											id="inlineCheckbox5" value="干饭" name="specs"> <label
+											class="form-check-label" for="inlineCheckbox5">干饭</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox"
+											id="inlineCheckbox6" value="干代码" name="specs"> <label
+											class="form-check-label" for="inlineCheckbox6">干代码</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="exampleFormControlFile1"
+									class="col-sm-3 col-form-label">选择文件</label>
+								<div class="col-sm-3">
+									<input type="file" class="form-control-file"
+										value="file selection" id="exampleFormControlFile1"
+										name="photo" placeholder="选择文件">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-primary">注册</button>
+								</div>
+							</div>
+						</form>
+
+
+
+					</div>
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>

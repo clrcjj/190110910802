@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线问卷系统用户主界面</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
+</head>
+<body
+	style="background-image: url(/image/back2.png); background-size: 100%, 100%">
+
+	<div class="container">
+
+		<!-- 导航条 -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-weight mt-2">
+            <a class="navbar-brand" href="#">问卷调查系统</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.jsp">首页
+                            <span class="sr-only">(current)</span>
+                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="QuestionnaireBuffer">填写问卷</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">当日访问量(${count})</a></li>
+                    <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">${username!=null?username:'未登录'}</a> <c:if
+                            test="${username!=null}">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="TUserInfo">我的信息</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="LogOutAction">注销</a>
+                            </div>
+                        </c:if></li>
+                </ul>
+            </div>
+        </nav>
+
+		<div class="row" style="margin-top: 10px">
+
+			<!-- 左边栏 -->
+			<div class="col-lg-3">
+
+                <div class="card">
+                    <div class="card-header">功能区</div>
+                    <div class="card-body">
+                        <div class="">
+                            <div class="list-group">
+                                <a href="login.jsp" class="list-group-item list-group-item-action">前往登录界面</a>
+                                <a href="TUserInfo" class="list-group-item list-group-item-action">显示个人信息</a>
+                                <a href="userchange.jsp" class="list-group-item list-group-item-action">修改个人信息</a>
+                                <a href="QuestionnaireBuffer" class="list-group-item list-group-item-action">前往填写问卷</a>
+                                <a href="QuestionnaireList_user" class="list-group-item list-group-item-action">我的填写记录</a>
+                                <a href="QrAction" class="list-group-item list-group-item-action">生成二维码名片</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="col-lg-6">
+
+				<div class="card">
+					<div class="card-header">问卷调查</div>
+					<div class="card-body">
+
+						<p style="color: red">${ info }</p>
+
+						<form method="post" action="QuestionnaireAction">
+
+							<p style="color: red" name="qn"></p>
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">专业</label>
+								<div class="col-sm-6">
+									<select class="form-control" name="major">
+										<c:if test="${ major==null }">
+											<option value="电子商务">电子商务</option>
+											<option value="计算机科学与技术">计算机科学与技术</option>
+											<option value="软件工程">软件工程</option>
+											<option value="信息管理与信息系统">信息管理与信息系统</option>
+										</c:if>
+										<c:if test="${ major!=null }">
+											<option value=${ major }>${major}</option>
+										</c:if>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">年级</label>
+								<div class="col-sm-6">
+									<select class="form-control" name="grade">
+										<c:if test="${ grade==null }">
+											<option value="大一">大一</option>
+											<option value="大二">大二</option>
+											<option value="大三">大三</option>
+											<option value="大四">大四</option>
+										</c:if>
+										<c:if test="${ grade!=null }">
+											<option value=${ grade }>${grade}</option>
+										</c:if>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">开始拥有手机时间</label>
+								<div class="col-sm-6">
+									<select class="form-control" name="start">
+										<c:if test="${ start==null }">
+											<option value="初中">初中</option>
+											<option value="高中">高中</option>
+											<option value="大学">大学</option>
+										</c:if>
+										<c:if test="${ start!=null }">
+											<option value=${ start }>${start}</option>
+										</c:if>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="inputPassword3" class="col-sm-3 col-form-label">软件名称</label>
+								<div class="col-sm-8">
+									<input type="text" name="app" class="form-control"
+										id="inputPassword3" placeholder="请输入所使用的app名称(中文全称)">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="inputEmail3" class="col-sm-3 col-form-label">使用时长(h)</label>
+								<div class="col-sm-8">
+									<input type="text" name="hour" class="form-control"
+										id="inputEmail3" placeholder="请输入使用时长,单位为小时数">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<button type="submit" class="btn btn-primary btn-block">提交问卷</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-3">
+
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">
+                        当前已登录用户列表(${onlineUserList.size()})
+                        <!-- (<span id="c1">0</span>人) -->
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <h5 class="card-title">系统功能介绍</h5>
+                            <p class="card-text">本系统为在线问卷填写系统，普通用户可以对问卷进行在线填写，系统管理员在登陆后有权限开启或终止问卷的填写，并且可以对填写的问卷数据进行统计以及简要分析</p>
+                            <p class="card-text">系统用途：简单的在线问卷功能以及对大学生每天花费在手机上的时间的统计</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                <div class="card-header">站长介绍</div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">19计算机1班</a>
+                        <a href="#" class="list-group-item list-group-item-action">190110910802</a>
+                        <a href="#" class="list-group-item list-group-item-action">蔡晶晶</a>
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+            </div>
+
+		</div>
+
+	</div>
+</body>
+</html>

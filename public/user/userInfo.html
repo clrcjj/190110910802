@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用户个人信息</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
+</head>
+<body style="background-image:url(/image/back2.png); background-size:100%,100%">
+
+
+	<div class="container">
+
+		<!-- 导航条 -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-weight mt-2">
+            <a class="navbar-brand" href="#">问卷调查系统</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.jsp">首页
+                            <span class="sr-only">(current)</span>
+                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="QuestionnaireBuffer">填写问卷</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">当日访问量(${count})</a></li>
+                    <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">${username!=null?username:'未登录'}</a> <c:if
+                            test="${username!=null}">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="TUserInfo">我的信息</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="LogOutAction">注销</a>
+                            </div>
+                        </c:if></li>
+                </ul>
+            </div>
+        </nav>
+
+		<div class="row" style="margin-top: 10px">
+
+			<!-- 左边栏 -->
+			<div class="col-lg-3">
+
+                <div class="card">
+                    <div class="card-header">功能区</div>
+                    <div class="card-body">
+                        <div class="">
+                            <div class="list-group">
+                                <a href="login.jsp" class="list-group-item list-group-item-action">前往登录界面</a>
+                                <a href="TUserInfo" class="list-group-item list-group-item-action">显示个人信息</a>
+                                <a href="userchange.jsp" class="list-group-item list-group-item-action">修改个人信息</a>
+                                <a href="QuestionnaireBuffer" class="list-group-item list-group-item-action">前往填写问卷</a>
+                                <a href="QuestionnaireList_user" class="list-group-item list-group-item-action">我的填写记录</a>
+                                <a href="QrAction" class="list-group-item list-group-item-action">生成二维码名片</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="col-lg-6">
+
+
+				<div class="card">
+					<div class="card-header">个人信息</div>
+					<div class="card-body">
+						<h2 class="text-center">您的个人信息如下</h2>
+						<ul class="list-group list-group-flush  pl-4">
+							<li class="list-group-item">用户名：${user.username}</li>
+							<li class="list-group-item">密码：${user.password}</li>
+							<li class="list-group-item">性别：${user.sex}</li>
+							<li class="list-group-item">出生年月：${user.birth}</li>
+							<li class="list-group-item">特长：${user.spec}</li>
+							<li class="list-group-item">照片：${user.photo}</li>
+							<li class="list-group-item">ip地址：${user.reg_time}</li>
+							<li class="list-group-item">注册时间：${user.ip}</li>
+						</ul>
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-3">
+				<div class="card bg-light mb-3" style="max-width: 18rem;">
+					<div class="card-header">图像</div>
+					<div class="card-body">
+						<h5 class="card-title">轻舟已过万重山</h5><h5>撸起袖子加油干</h5>
+						<p class="card-text">
+							<%-- <img src="photo/${myImg}" style="width: 100%"> --%>
+							<%-- <img src="photo/${myImg==null?'1199.png':myImg}"> --%>
+							<img src="image/1199.jpg" class="card-img-top">
+						</p>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

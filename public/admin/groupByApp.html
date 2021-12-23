@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>每个app使用时长</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
+</head>
+<body style="background-image:url(/image/back2.png); background-size:100%,100%">
+	<div class="container">
+
+		<!-- 导航条 -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-weight mt-2" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="#">问卷调查系统</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.jsp">首页
+                            <span class="sr-only">(current)</span>
+                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">当日访问量(${count})</a></li>
+                    <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">${username!=null?username:'未登录'}</a> 
+                        <c:if
+                            test="${username!=null}">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="LogOutAction">注销</a>
+                            </div>
+                        </c:if></li>
+                    
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="QuestionnaireQuery" method="post">
+                    <input class="form-control mr-sm-2" type="search"
+                        placeholder="查找用户填写信息" aria-label="Search" name="search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+		<div class="row" style="margin-top: 10px">
+
+			<!-- 左边栏 -->
+			<div class="col-lg-3">
+
+                <div class="card">
+                    <div class="card-header">功能区</div>
+                    <div class="card-body">
+                        <div class="">
+                            <div class="list-group">
+                                <a href="QuestionnaireList" class="list-group-item list-group-item-action">问卷信息列表</a>
+                                <a href="UserListAction" class="list-group-item list-group-item-action">用户列表</a>
+                                <a href="GroupByGradeAction" class="list-group-item list-group-item-action">统计填写问卷的各年级人数</a>
+                                <a href="GroupByMajorAction" class="list-group-item list-group-item-action">统计填写问卷的各专业人数</a>
+                                <a href="GroupByAppAction" class="list-group-item list-group-item-action">统计各app使用情况</a>
+                                <a href="GroupByUserAction" class="list-group-item list-group-item-action">统计用户每天使用手机情况</a>
+                                <a href="StartAction" class="list-group-item list-group-item-action">开始填写</a>
+                                <a href="EndAction" class="list-group-item list-group-item-action">结束填写</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="col-lg-4">
+
+				<div class="card">
+					<div class="card-header">问卷信息简要分析</div>
+					<div class="card-body">
+						<h2 class="text-center">各app的使用情况</h2>
+						<table class="table table-striped">
+							<thead>
+								<tr class="min-width text-center">
+									<th scope="col">序号</th>
+									<th scope="col">app名称</th>
+									<th scope="col">学生使用时长</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${ list }" var="app" varStatus="i">
+									<tr class="min-width text-center">
+										<th scope="row">${i.count}</th>
+										<td>${app.app}</td>
+										<td>${app.sum}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+
+			<div id="main" style="width: 600px; height: 400px; margin: 0 auto" class="col-lg-5">
+				<script type="text/javascript">
+					// 基于准备好的dom，初始化echarts实例
+					var myChart = echarts.init(document.getElementById('main'));
+
+					var x = [];
+					var y = [];
+
+					// 初始化，将bmxx.tbdwid存入数组
+					<c:forEach items="${list}" var="app">
+					x.push('${app.app}'); //js中可以使用此标签，将EL表达式中的值push到数组中
+					</c:forEach>
+
+					// 初始化，将pfx.id存入数组
+					<c:forEach items="${list}" var="app">
+					y.push('${app.sum}'); //js中可以使用此标签，将EL表达式中的值push到数组中
+					</c:forEach>
+
+					// 指定图表的配置项和数据
+					var option = {
+						title : {
+							text : '各app使用时长 '
+						},
+						tooltip : {},
+						legend : {
+							data : [ '使用时长(h)' ]
+						},
+						xAxis : {
+							data : x
+						},
+						yAxis : {},
+						series : [ {
+							name : '使用时长(h)',
+							type : 'bar',
+							data : y
+						} ]
+					};
+
+					// 使用刚指定的配置项和数据显示图表。
+					myChart.setOption(option);
+				</script>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -4,7 +4,7 @@ const ejs = require('ejs')
 const mongoose = require('mongoose');
 const e = require("express");
 mongoose.connect('mongodb://172.0.0.1:27017/190110910802');
-app.use('/',express.static('logo'))
+app.use('/',express.static('like'))
 app.use('/',express.static('public'))
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
